@@ -31,29 +31,29 @@ jobs:
         run: pytest
 
   frontend:
-    name: Frontend Build
-    runs-on: ubuntu-latest
+  name: Frontend Build
+  runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v4
 
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-          cache: pnpm
-          cache-dependency-path: frontend/pnpm-lock.yaml
+    - name: Set up pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: 10
 
-      - name: Set up pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+    - name: Set up Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: "22"
+        cache: pnpm
+        cache-dependency-path: frontend/pnpm-lock.yaml
 
-      - name: Install dependencies
-        working-directory: frontend
-        run: pnpm install --frozen-lockfile
+    - name: Install dependencies
+      working-directory: frontend
+      run: pnpm install --frozen-lockfile
 
-      - name: Build frontend
-        working-directory: frontend
-        run: pnpm build
+    - name: Build frontend
+      working-directory: frontend
+      run: pnpm build
