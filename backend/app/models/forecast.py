@@ -1,4 +1,4 @@
-from sqlalchemy import BigInteger, DateTime, Float, UniqueConstraint, Index
+from sqlalchemy import BigInteger, DateTime, Float, Integer, UniqueConstraint, Index
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.sql import func
 
@@ -17,7 +17,11 @@ class WindForecast(Base):
         Index("ix_forecast_start_time", "start_time"),
     )
 
-    id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
+    id: Mapped[int] = mapped_column(
+        BigInteger().with_variant(Integer, "sqlite"),
+        primary_key=True,
+        autoincrement=True,
+    )
 
     publish_time: Mapped[object] = mapped_column(
         DateTime(timezone=True), nullable=False
