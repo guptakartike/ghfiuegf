@@ -6,19 +6,16 @@ app = FastAPI(
     version="1.0.0",
 )
 
-origins = [
-    "http://localhost:5173",
-    "https://wind-analytics-bay.vercel.app",
-]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=[
+        "https://wind-analytics-bay.vercel.app",
+        "http://localhost:5173",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 @app.get("/api/v1/health")
 def health_check():
