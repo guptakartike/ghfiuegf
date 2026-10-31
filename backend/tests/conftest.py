@@ -4,11 +4,13 @@ from datetime import date, datetime, timezone
 import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.pool import StaticPool
 
 from app.database import Base
 from app.ingestion.schemas import FuelhhRecord, WindforRecord
 from app.models.actual import ActualGeneration
 from app.models.forecast import WindForecast
+from app.models.matched_observation import MatchedHourlyObservation
 
 
 @pytest.fixture
@@ -169,7 +171,11 @@ def expected_fuelhh_validated() -> FuelhhRecord:
 @pytest.fixture
 def test_db_session():
     """Create a temporary in-memory SQLite database and session with all tables."""
-    engine = create_engine("sqlite:///:memory:")
+    engine = create_engine(
+        "sqlite:///:memory:",
+        connect_args={"check_same_thread": False},
+        poolclass=StaticPool,
+    )
     Base.metadata.create_all(engine)
     TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
     session = TestingSessionLocal()
