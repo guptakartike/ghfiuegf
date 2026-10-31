@@ -14,7 +14,11 @@ class ActualGeneration(Base):
         UniqueConstraint("start_time", name="uq_actual_start_time"),
     )
 
-    id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
+    id: Mapped[int] = mapped_column(
+        BigInteger().with_variant(Integer, "sqlite"),
+        primary_key=True,
+        autoincrement=True,
+    )
 
     start_time: Mapped[object] = mapped_column(
         DateTime(timezone=True), nullable=False

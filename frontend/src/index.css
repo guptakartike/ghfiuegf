@@ -1,1 +1,60 @@
 @import "tailwindcss";
+
+@theme {
+  --color-sidebar-surface: #142B3B;
+  --color-sidebar-surface-hover: #1C384D;
+  --color-sidebar-surface-active: #20435C;
+  --color-sidebar-border: #20435C;
+  --color-sidebar-text: #F5F7F8;
+  --color-sidebar-text-muted: #7E99AB;
+
+  --color-surface-card: #FFFFFF;
+  --color-surface-canvas: #F5F7F8;
+  --color-surface-container: #ECEEEF;
+  --color-border-subtle: #E4E8EB;
+  --color-border-strong: #CBD5DB;
+
+  --color-text-primary: #142B3B;
+  --color-text-muted: #526B7A;
+  --color-text-faint: #8A9EA8;
+
+  --color-chart-primary: #159A91;
+  --color-chart-secondary: #142B3B;
+  --color-chart-tertiary: #7E99AB;
+  --color-chart-grid: #E4E8EB;
+
+  --font-inter: "Inter", sans-serif;
+}
+
+@layer base {
+  html, body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-surface-canvas);
+    color: var(--color-text-primary);
+    font-family: var(--font-inter);
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+.tabular-nums {
+  font-feature-settings: "tnum" 1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Material symbols styling */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
