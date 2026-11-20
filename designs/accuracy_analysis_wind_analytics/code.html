@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "sidebar-surface": "#142B3B", "on-tertiary": "#ffffff", "sidebar-text-muted": "#7E99AB", "on-secondary-fixed-variant": "#00504b", "surface-container-lowest": "#ffffff", "error": "#ba1a1a", "primary-fixed-dim": "#b2c9de", "secondary": "#006a64", "tertiary-fixed-dim": "#a8cae9", "surface-container-high": "#e6e8e9", "surface-canvas": "#F5F7F8", "outline-variant": "#c3c7cc", "on-tertiary-fixed": "#001e30", "on-surface": "#191c1d", "on-primary": "#ffffff", "chart-grid": "#E4E8EB", "on-tertiary-fixed-variant": "#284a63", "sidebar-border": "#20435C", "on-secondary-fixed": "#00201e", "chart-secondary": "#142B3B", "inverse-surface": "#2e3132", "surface": "#f8fafb", "surface-container-highest": "#e1e3e4", "primary-fixed": "#cee5fb", "on-error": "#ffffff", "chart-tertiary": "#7E99AB", "surface-dim": "#d8dadb", "surface-container-low": "#f2f4f5", "surface-variant": "#e1e3e4", "text-faint": "#8A9EA8", "on-secondary-container": "#00716a", "border-strong": "#CBD5DB", "on-background": "#191c1d", "on-surface-variant": "#43474c", "tertiary-fixed": "#cbe6ff", "outline": "#73777c", "surface-bright": "#f8fafb", "text-primary": "#142B3B", "border-subtle": "#E4E8EB", "on-error-container": "#93000a", "on-primary-container": "#7c93a6", "sidebar-surface-active": "#20435C", "background": "#f8fafb", "surface-tint": "#4b6173", "secondary-fixed-dim": "#69d8ce", "surface-card": "#FFFFFF", "secondary-container": "#86f5ea", "on-secondary": "#ffffff", "primary-container": "#142b3b", "on-primary-fixed-variant": "#33495a", "surface-container": "#eceeef", "inverse-primary": "#b2c9de", "on-primary-fixed": "#051e2d", "inverse-on-surface": "#eff1f2", "chart-primary": "#159A91", "error-container": "#ffdad6", "text-muted": "#526B7A", "tertiary": "#001726", "secondary-fixed": "#86f5ea", "tertiary-container": "#022c44", "on-tertiary-container": "#7394b0", "primary": "#001625", "sidebar-text": "#F5F7F8", "sidebar-surface-hover": "#1C384D" }, borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, spacing: { "space-sm": "0.5rem", "space-lg": "1rem", "space-md": "0.75rem", "gutter": "1rem", "space-xs": "0.25rem", "space-xl": "1.5rem", "margin": "1.5rem" }, fontFamily: { "tabular-data": ["Inter"], "label-sm": ["Inter"], "body-lg": ["Inter"], "headline-xl": ["Inter"], "body-md": ["Inter"], "body-sm": ["Inter"], "headline-lg": ["Inter"], "headline-md": ["Inter"], "label-lg": ["Inter"], "label-md": ["Inter"], "headline-sm": ["Inter"], "kpi-value": ["Inter"] }, fontSize: { "tabular-data": ["12px", { lineHeight: "16px", fontWeight: "400" }], "label-sm": ["10px", { lineHeight: "12px", letterSpacing: "0.05em", fontWeight: "600" }], "body-lg": ["15px", { lineHeight: "22px", fontWeight: "400" }], "headline-xl": ["28px", { lineHeight: "36px", letterSpacing: "-0.02em", fontWeight: "600" }], "body-md": ["13px", { lineHeight: "18px", fontWeight: "400" }], "body-sm": ["12px", { lineHeight: "16px", fontWeight: "400" }], "headline-lg": ["20px", { lineHeight: "28px", letterSpacing: "-0.015em", fontWeight: "600" }], "headline-md": ["16px", { lineHeight: "24px", letterSpacing: "-0.01em", fontWeight: "600" }], "label-lg": ["13px", { lineHeight: "16px", letterSpacing: "0.01em", fontWeight: "500" }], "label-md": ["11px", { lineHeight: "14px", letterSpacing: "0.03em", fontWeight: "500" }], "headline-sm": ["14px", { lineHeight: "20px", letterSpacing: "-0.005em", fontWeight: "600" }], "kpi-value": ["24px", { lineHeight: "28px", letterSpacing: "-0.02em", fontWeight: "600" }] } } } };</script></head><body class="bg-surface-canvas text-on-surface font-body-md text-body-md"><aside class="fixed left-0 top-0 h-screen w-60 bg-sidebar-surface border-r border-sidebar-border z-50 flex flex-col justify-between"><div class="flex flex-col"><div class="h-[60px] flex items-center px-4 gap-3 border-b border-sidebar-border"><img alt="Wind Analytics Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WUaIDiIWasAbS52F-u33Knh7pC0_DPKiJP67pgRUw7xyIgiv2K5vq9-QaAafkMBzFiJlByVKkXlGYx0rwPCGnTw_ZTnUolFA9w0PyRupsPXr44gJI6LTTB4skhU6yVpftvjHnAmx5uHO2T7qbe4rLyTdaUfA-NqdKPkdLjf7fJZmSuR6DyQeuOeyKfDxs5GREvQfwQhJXW3-Qu_WNE15SLrtYjUhPJKktfeHZE1GhQ"/><div class="flex flex-col"><div class="flex items-center gap-1.5"><span class="font-headline-sm text-headline-sm text-sidebar-text tracking-tight font-semibold">Wind Analytics</span></div><span class="font-label-sm text-label-sm text-sidebar-text-muted uppercase tracking-wider">UK Grid / BM</span></div></div><div class="px-2 py-4"><div class="px-2.5 pb-2 font-label-sm text-label-sm uppercase tracking-wider text-sidebar-text-muted">Analytical Suite</div><nav class="flex flex-col gap-0.5" data-active-classes="bg-sidebar-surface-active text-sidebar-text border-l-2 border-chart-primary font-medium"><a class="flex items-center gap-3 px-2.5 py-2 rounded text-sidebar-text-muted hover:bg-sidebar-surface-hover hover:text-sidebar-text transition-colors border-l-2 border-transparent font-label-lg text-label-lg" data-path="overview" href="#"><span class="material-symbols-outlined text-[18px]">grid_view</span><span>Overview</span></a><a class="flex items-center gap-3 px-2.5 py-2 rounded text-sidebar-text-muted hover:bg-sidebar-surface-hover hover:text-sidebar-text transition-colors border-l-2 border-transparent font-label-lg text-label-lg" data-path="forecast-explorer" href="#"><span class="material-symbols-outlined text-[18px]">query_stats</span><span>Forecast Explorer</span></a><a aria-current="page" class="flex items-center gap-3 px-2.5 py-2 rounded transition-colors bg-sidebar-surface-active text-sidebar-text border-l-2 border-chart-primary font-medium" data-path="accuracy-analysis" href="#"><span class="material-symbols-outlined text-[18px]">ssid_chart</span><span>Accuracy Analysis</span></a><a class="flex items-center gap-3 px-2.5 py-2 rounded text-sidebar-text-muted hover:bg-sidebar-surface-hover hover:text-sidebar-text transition-colors border-l-2 border-transparent font-label-lg text-label-lg" data-path="data-sources" href="#"><span class="material-symbols-outlined text-[18px]">database</span><span>Data Sources</span></a><a class="flex items-center gap-3 px-2.5 py-2 rounded text-sidebar-text-muted hover:bg-sidebar-surface-hover hover:text-sidebar-text transition-colors border-l-2 border-transparent font-label-lg text-label-lg" data-path="settings" href="#"><span class="material-symbols-outlined text-[18px]">tune</span><span>Settings</span></a></nav></div></div><div class="p-3 border-t border-sidebar-border bg-sidebar-surface"><div class="flex items-center justify-between px-2 py-1.5 rounded bg-primary/20"><div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-chart-primary"></span><span class="font-label-sm text-label-sm text-sidebar-text tracking-normal">Elexon BMRS Live</span></div><span class="font-label-sm text-label-sm text-sidebar-text-muted">15:00 UK</span></div></div></aside><div class="pl-60 min-h-screen flex flex-col"><header class="fixed top-0 left-60 right-0 h-[60px] bg-surface-card border-b border-border-subtle z-40 px-6 flex items-center justify-between"><div class="flex items-center gap-3"><img alt="Wind Analytics Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WUaIDiIWasAbS52F-u33Knh7pC0_DPKiJP67pgRUw7xyIgiv2K5vq9-QaAafkMBzFiJlByVKkXlGYx0rwPCGnTw_ZTnUolFA9w0PyRupsPXr44gJI6LTTB4skhU6yVpftvjHnAmx5uHO2T7qbe4rLyTdaUfA-NqdKPkdLjf7fJZmSuR6DyQeuOeyKfDxs5GREvQfwQhJXW3-Qu_WNE15SLrtYjUhPJKktfeHZE1GhQ"/><span class="font-headline-sm text-headline-sm text-text-primary uppercase tracking-tight">Analytical Workspace</span></div><div class="flex items-center gap-3"><div class="h-8 px-2.5 bg-surface-canvas border border-border-strong rounded flex items-center gap-2"><span class="material-symbols-outlined text-[15px] text-text-muted">calendar_today</span><span class="font-tabular-data text-tabular-data text-text-primary font-medium">01 Jan 2026 – 31 Jan 2026</span></div><div class="h-8 px-2.5 bg-surface-canvas border border-border-strong rounded flex items-center gap-2"><span class="material-symbols-outlined text-[15px] text-chart-primary">timelapse</span><span class="font-tabular-data text-tabular-data text-text-primary">Cutoff: 15:00 UK (D-1 Gate Closure)</span><span class="material-symbols-outlined text-[16px] text-text-muted">arrow_drop_down</span></div><div class="hidden xl:flex items-center px-2"><span class="font-tabular-data text-tabular-data text-text-muted">Updated: 31 Jan 2026, 23:59 GMT</span></div><div class="h-4 w-px bg-border-subtle mx-1 hidden sm:block"></div><div class="flex items-center gap-2.5 pl-1"><div class="flex flex-col text-right"><span class="font-label-md text-label-md text-text-primary leading-none">GB Power Trading</span><span class="font-label-sm text-label-sm text-text-muted leading-none mt-1">Desk Live</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="pt-[60px] w-full min-h-screen bg-surface-canvas"><div class="max-w-[1440px] mx-auto p-7"><div class="flex flex-col w-full">
+<!-- Page Header & Analytical Context -->
+<div class="flex flex-col md:flex-row md:items-end justify-between pb-6 gap-4">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-chart-primary font-semibold">Analytical Verification</span>
+<span class="w-1 h-1 rounded-full bg-border-strong"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-text-muted">UK BMRS & National Grid ESO Outturn</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-text-primary font-semibold tracking-tight">Forecast Accuracy & Bias Analysis</h1>
+<p class="font-body-md text-body-md text-text-muted">Statistical verification of January 2026 wind forecasts against UK balancing market outturn data across 744 settlement periods.</p>
+</div>
+<!-- Time Resolution Selector -->
+<div class="flex items-center self-start md:self-auto bg-surface-card p-1 rounded-sm border border-border-subtle">
+<button class="px-3 py-1.5 rounded-sm font-label-md text-label-md bg-sidebar-surface text-on-primary transition-colors" type="button">Hourly (Settlement Periods)</button>
+<button class="px-3 py-1.5 rounded-sm font-label-md text-label-md text-text-muted hover:text-text-primary transition-colors" type="button">Daily Aggregation</button>
+<button class="px-3 py-1.5 rounded-sm font-label-md text-label-md text-text-muted hover:text-text-primary transition-colors" type="button">Peak vs Off-Peak</button>
+</div>
+</div>
+<!-- Systematic Sign Notation Alert Bar -->
+<div class="mb-6 bg-surface-card border-l-2 border-chart-primary p-3 flex flex-wrap items-center justify-between gap-3 text-body-sm font-body-sm text-text-muted">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[18px] text-chart-primary">info</span>
+<span class="font-medium text-text-primary">Sign Convention:</span>
+<span>Forecast Error = Forecast Outturn − Actual Generation.</span>
+<span class="bg-surface-canvas px-2 py-0.5 rounded text-text-primary font-medium">Positive (+Δ) = Overforecast (Forecast > Actual)</span>
+<span class="bg-surface-canvas px-2 py-0.5 rounded text-text-primary font-medium">Negative (−Δ) = Underforecast (Forecast < Actual)</span>
+</div>
+<div class="font-tabular-data text-tabular-data text-text-faint">
+      Cutoff: 15:00 UK D-1 | Resolution: 30-min BMRS aggregated to hourly (MW)
+    </div>
+</div>
+<!-- KPI Cards Row -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+<!-- Card 1: MAE -->
+<div class="bg-surface-card border border-border-subtle p-4 rounded-sm flex flex-col justify-between">
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-sm text-label-sm uppercase text-text-muted tracking-wider">Mean Absolute Error (MAE)</span>
+<span class="font-label-sm text-label-sm text-text-faint">TARGET < 1,750 MW</span>
+</div>
+<div class="my-1">
+<span class="font-kpi-value text-kpi-value text-text-primary tabular-nums">1,904.01 <span class="font-body-md text-body-md font-normal text-text-muted">MW</span></span>
+</div>
+<div class="mt-2 pt-2 border-t border-border-subtle flex flex-col gap-0.5">
+<span class="font-body-sm text-body-sm text-text-muted">Mean deviation magnitude</span>
+<span class="font-tabular-data text-tabular-data text-text-faint">Baseline variance: +154.01 MW vs SLA</span>
+</div>
+</div>
+<!-- Card 2: RMSE -->
+<div class="bg-surface-card border border-border-subtle p-4 rounded-sm flex flex-col justify-between">
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-sm text-label-sm uppercase text-text-muted tracking-wider">Root Mean Squared (RMSE)</span>
+<span class="font-label-sm text-label-sm text-text-faint">RATIO: 1.24</span>
+</div>
+<div class="my-1">
+<span class="font-kpi-value text-kpi-value text-text-primary tabular-nums">2,361.10 <span class="font-body-md text-body-md font-normal text-text-muted">MW</span></span>
+</div>
+<div class="mt-2 pt-2 border-t border-border-subtle flex flex-col gap-0.5">
+<span class="font-body-sm text-body-sm text-text-muted">Standard deviation of residuals</span>
+<span class="font-tabular-data text-tabular-data text-text-faint">RMSE/MAE ratio denotes moderate tail skew</span>
+</div>
+</div>
+<!-- Card 3: Forecast Bias -->
+<div class="bg-surface-card border border-border-subtle p-4 rounded-sm flex flex-col justify-between">
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-sm text-label-sm uppercase text-text-muted tracking-wider">Forecast Bias</span>
+<span class="font-label-sm text-label-sm text-chart-primary font-semibold">SYSTEMATIC +Δ</span>
+</div>
+<div class="my-1">
+<span class="font-kpi-value text-kpi-value text-text-primary tabular-nums">+1,692.47 <span class="font-body-md text-body-md font-normal text-text-muted">MW</span></span>
+</div>
+<div class="mt-2 pt-2 border-t border-border-subtle flex flex-col gap-0.5">
+<span class="font-body-sm text-body-sm text-text-muted">Overforecast tendency</span>
+<span class="font-tabular-data text-tabular-data text-text-faint">88.9% of abs error driven by overestimation</span>
+</div>
+</div>
+<!-- Card 4: Ratio -->
+<div class="bg-surface-card border border-border-subtle p-4 rounded-sm flex flex-col justify-between">
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-sm text-label-sm uppercase text-text-muted tracking-wider">Over vs Under Ratio</span>
+<span class="font-label-sm text-label-sm text-text-faint">744 HOURS TOTAL</span>
+</div>
+<div class="my-1 flex items-baseline gap-1.5">
+<span class="font-kpi-value text-kpi-value text-text-primary tabular-nums">78.4%</span>
+<span class="font-body-md text-body-md text-text-faint">/</span>
+<span class="font-kpi-value text-kpi-value text-chart-secondary tabular-nums">21.6%</span>
+</div>
+<div class="mt-2 pt-2 border-t border-border-subtle flex flex-col gap-0.5">
+<span class="font-body-sm text-body-sm text-text-muted">583 hrs Over (+Δ) | 161 hrs Under (−Δ)</span>
+<div class="w-full bg-surface-canvas h-1.5 rounded-sm overflow-hidden flex mt-1">
+<div class="bg-chart-primary h-full" style="width: 78.4%"></div>
+<div class="bg-sidebar-surface h-full" style="width: 21.6%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Mid Section: 2-Column Analytical Charts -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-6">
+<!-- Left Column: Error Distribution Histogram -->
+<div class="lg:col-span-5 bg-surface-card border border-border-subtle p-5 rounded-sm flex flex-col justify-between">
+<div class="flex items-start justify-between mb-4">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-text-primary font-semibold">Error Distribution Histogram</h2>
+<p class="font-body-sm text-body-sm text-text-muted">Settlement hour count binned by 500 MW forecast error intervals</p>
+</div>
+<div class="flex items-center gap-1.5 text-label-sm font-label-sm text-text-muted bg-surface-canvas px-2 py-1 rounded">
+<span class="w-2 h-2 rounded-full bg-chart-primary"></span>
+<span>Hours / Bin</span>
+</div>
+</div>
+<!-- Histogram Visualization SVG -->
+<div class="relative w-full h-[280px]">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 460 260">
+<!-- Horizontal Grid Lines -->
+<line stroke="#E4E8EB" stroke-width="1" x1="30" x2="445" y1="30" y2="30"></line>
+<line stroke="#E4E8EB" stroke-width="1" x1="30" x2="445" y1="85" y2="85"></line>
+<line stroke="#E4E8EB" stroke-width="1" x1="30" x2="445" y1="140" y2="140"></line>
+<line stroke="#E4E8EB" stroke-width="1" x1="30" x2="445" y1="195" y2="195"></line>
+<line stroke="#CBD5DB" stroke-width="1" x1="30" x2="445" y1="230" y2="230"></line>
+<!-- Y-Axis Labels -->
+<text fill="#8A9EA8" font-family="Inter" font-size="9" text-anchor="end" x="22" y="34">150h</text>
+<text fill="#8A9EA8" font-family="Inter" font-size="9" text-anchor="end" x="22" y="89">100h</text>
+<text fill="#8A9EA8" font-family="Inter" font-size="9" text-anchor="end" x="22" y="144">50h</text>
+<text fill="#8A9EA8" font-family="Inter" font-size="9" text-anchor="end" x="22" y="199">10h</text>
+<text fill="#8A9EA8" font-family="Inter" font-size="9" text-anchor="end" x="22" y="233">0</text>
+<!-- Bins Data Layout: Max y-height = 200 (at 150h), base = 230 -->
+<!-- 1: -2000 to -1500 (12h) -> h=16 -> y=214 -->
+<rect fill="#7E99AB" height="16" width="28" x="42" y="214"></rect>
+<text fill="#526B7A" font-family="Inter" font-size="9" text-anchor="middle" x="56" y="208">12</text>
+<!-- 2: -1500 to -1000 (34h) -> h=45 -> y=185 -->
+<rect fill="#7E99AB" height="45" width="28" x="76" y="185"></rect>
+<text fill="#526B7A" font-family="Inter" font-size="9" text-anchor="middle" x="90" y="179">34</text>
+<!-- 3: -1000 to -500 (51h) -> h=68 -> y=162 -->
+<rect fill="#7E99AB" height="68" width="28" x="110" y="162"></rect>
+<text fill="#526B7A" font-family="Inter" font-size="9" text-anchor="middle" x="124" y="156">51</text>
+<!-- 4: -500 to 0 (64h) -> h=85 -> y=145 -->
+<rect fill="#7E99AB" height="85" width="28" x="144" y="145"></rect>
+<text fill="#526B7A" font-family="Inter" font-size="9" text-anchor="middle" x="158" y="139">64</text>
+<!-- ZERO BOUNDARY LINE (x=175) -->
+<line stroke="#142B3B" stroke-dasharray="3 3" stroke-width="1.5" x1="175" x2="175" y1="15" y2="235"></line>
+<text fill="#142B3B" font-family="Inter" font-size="9" font-weight="600" text-anchor="middle" x="175" y="12">0 MW</text>
+<!-- Positive Bins (Teal #159A91) -->
+<!-- 5: 0 to +500 (88h) -> h=117 -> y=113 -->
+<rect fill="#159A91" height="117" width="28" x="178" y="113"></rect>
+<text fill="#142B3B" font-family="Inter" font-size="9" text-anchor="middle" x="192" y="107">88</text>
+<!-- 6: +500 to +1000 (124h) -> h=165 -> y=65 -->
+<rect fill="#159A91" height="165" width="28" x="212" y="65"></rect>
+<text fill="#142B3B" font-family="Inter" font-size="9" text-anchor="middle" x="226" y="59">124</text>
+<!-- 7: +1000 to +1500 (148h - Modal) -> h=197 -> y=33 -->
+<rect fill="#159A91" height="197" stroke="#142B3B" stroke-width="1" width="28" x="246" y="33"></rect>
+<text fill="#142B3B" font-family="Inter" font-size="9" font-weight="600" text-anchor="middle" x="260" y="27">148★</text>
+<!-- 8: +1500 to +2000 (106h) -> h=141 -> y=89 -->
+<rect fill="#159A91" height="141" width="28" x="280" y="89"></rect>
+<text fill="#142B3B" font-family="Inter" font-size="9" text-anchor="middle" x="294" y="83">106</text>
+<!-- 9: +2000 to +2500 (68h) -> h=90 -> y=140 -->
+<rect fill="#159A91" height="90" width="28" x="314" y="140"></rect>
+<text fill="#142B3B" font-family="Inter" font-size="9" text-anchor="middle" x="328" y="134">68</text>
+<!-- 10: +2500 to +3000 (32h) -> h=42 -> y=188 -->
+<rect fill="#159A91" height="42" width="28" x="348" y="188"></rect>
+<text fill="#142B3B" font-family="Inter" font-size="9" text-anchor="middle" x="362" y="182">32</text>
+<!-- 11: > +3000 (17h) -> h=22 -> y=208 -->
+<rect fill="#159A91" height="22" width="28" x="382" y="208"></rect>
+<text fill="#142B3B" font-family="Inter" font-size="9" text-anchor="middle" x="396" y="202">17</text>
+<!-- X-Axis Labels -->
+<text fill="#8A9EA8" font-family="Inter" font-size="8" text-anchor="middle" x="56" y="244">-1.7k</text>
+<text fill="#8A9EA8" font-family="Inter" font-size="8" text-anchor="middle" x="90" y="244">-1.2k</text>
+<text fill="#8A9EA8" font-family="Inter" font-size="8" text-anchor="middle" x="124" y="244">-750</text>
+<text fill="#8A9EA8" font-family="Inter" font-size="8" text-anchor="middle" x="158" y="244">-250</text>
+<text fill="#8A9EA8" font-family="Inter" font-size="8" text-anchor="middle" x="192" y="244">+250</text>
+<text fill="#8A9EA8" font-family="Inter" font-size="8" text-anchor="middle" x="226" y="244">+750</text>
+<text fill="#142B3B" font-family="Inter" font-size="8" font-weight="600" text-anchor="middle" x="260" y="244">+1.2k</text>
+<text fill="#8A9EA8" font-family="Inter" font-size="8" text-anchor="middle" x="294" y="244">+1.7k</text>
+<text fill="#8A9EA8" font-family="Inter" font-size="8" text-anchor="middle" x="328" y="244">+2.2k</text>
+<text fill="#8A9EA8" font-family="Inter" font-size="8" text-anchor="middle" x="362" y="244">+2.7k</text>
+<text fill="#8A9EA8" font-family="Inter" font-size="8" text-anchor="middle" x="396" y="244">>+3k</text>
+</svg>
+</div>
+<div class="mt-4 pt-3 border-t border-border-subtle flex flex-col gap-1.5">
+<div class="flex items-center justify-between text-label-sm font-label-sm">
+<span class="text-text-muted">Underforecast Zone (161h)</span>
+<span class="text-chart-primary font-semibold">Overforecast Zone (583h) - 78.4%</span>
+</div>
+<p class="font-tabular-data text-tabular-data text-text-muted leading-relaxed">
+          Distribution shows marked right-skew (median error +1,280 MW), indicating physical wind farm curtailment uncaptured in raw meteorological models. Modal bin: +1,000 to +1,500 MW (148 hours).
+        </p>
+</div>
+</div>
+<!-- Right Column: Hourly Forecast Error Time Series -->
+<div class="lg:col-span-7 bg-surface-card border border-border-subtle p-5 rounded-sm flex flex-col justify-between">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-text-primary font-semibold">Hourly Forecast Error Time Series (744 Hours)</h2>
+<p class="font-body-sm text-body-sm text-text-muted">Net delta vector (Forecast − Actual) across the full delivery month of January 2026</p>
+</div>
+<div class="flex items-center gap-3 font-label-sm text-label-sm">
+<div class="flex items-center gap-1.5 text-text-muted">
+<span class="w-3 h-0.5 bg-chart-primary"></span>
+<span>Over (+Δ)</span>
+</div>
+<div class="flex items-center gap-1.5 text-text-muted">
+<span class="w-3 h-0.5 bg-chart-tertiary"></span>
+<span>Under (−Δ)</span>
+</div>
+<div class="flex items-center gap-1.5 text-text-muted">
+<span class="w-3 h-0.5 bg-chart-secondary"></span>
+<span>Zero Baseline</span>
+</div>
+</div>
+</div>
+<!-- Time Series Chart SVG -->
+<div class="relative w-full h-[280px]">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 620 260">
+<defs>
+<lineargradient id="area-teal-fill" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#159A91" stop-opacity="0.35"></stop>
+<stop offset="100%" stop-color="#159A91" stop-opacity="0.05"></stop>
+</lineargradient>
+<lineargradient id="area-under-fill" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#7E99AB" stop-opacity="0.1"></stop>
+<stop offset="100%" stop-color="#7E99AB" stop-opacity="0.35"></stop>
+</lineargradient>
+</defs>
+<!-- Horizontal Grid Lines -->
+<line stroke="#E4E8EB" stroke-width="1" x1="45" x2="610" y1="35" y2="35"></line>
+<line stroke="#E4E8EB" stroke-width="1" x1="45" x2="610" y1="85" y2="85"></line>
+<line stroke="#142B3B" stroke-width="1.5" x1="45" x2="610" y1="135" y2="135"></line> <!-- ZERO LINE -->
+<line stroke="#E4E8EB" stroke-width="1" x1="45" x2="610" y1="185" y2="185"></line>
+<line stroke="#CBD5DB" stroke-width="1" x1="45" x2="610" y1="230" y2="230"></line>
+<!-- Y-Axis Labels -->
+<text fill="#8A9EA8" font-family="Inter" font-size="9" text-anchor="end" x="38" y="38">+4,000 MW</text>
+<text fill="#8A9EA8" font-family="Inter" font-size="9" text-anchor="end" x="38" y="88">+2,000 MW</text>
+<text fill="#142B3B" font-family="Inter" font-size="9" font-weight="600" text-anchor="end" x="38" y="139">0 MW</text>
+<text fill="#8A9EA8" font-family="Inter" font-size="9" text-anchor="end" x="38" y="188">-2,000 MW</text>
+<text fill="#8A9EA8" font-family="Inter" font-size="9" text-anchor="end" x="38" y="233">-3,500 MW</text>
+<!-- X-Axis Grid & Labels (Days of Jan) -->
+<text fill="#8A9EA8" font-family="Inter" font-size="9" text-anchor="middle" x="50" y="244">01 Jan</text>
+<text fill="#8A9EA8" font-family="Inter" font-size="9" text-anchor="middle" x="140" y="244">07 Jan</text>
+<text fill="#8A9EA8" font-family="Inter" font-size="9" text-anchor="middle" x="235" y="244">14 Jan</text>
+<text fill="#142B3B" font-family="Inter" font-size="9" font-weight="600" text-anchor="middle" x="340" y="244">18 Jan (Peak)</text>
+<text fill="#142B3B" font-family="Inter" font-size="9" font-weight="600" text-anchor="middle" x="440" y="244">22 Jan (Trough)</text>
+<text fill="#8A9EA8" font-family="Inter" font-size="9" text-anchor="middle" x="530" y="244">28 Jan</text>
+<text fill="#8A9EA8" font-family="Inter" font-size="9" text-anchor="middle" x="595" y="244">31 Jan</text>
+<!-- Net Error Vector Line Chart Points -->
+<!-- Base baseline is y=135 (0 MW), 1000MW = 25px height -->
+<!-- Overforecast Shading Polygon -->
+<polygon fill="url(#area-teal-fill)" points="
+            50,135
+            50,110 65,102 85,115 110,95 130,85 155,100 175,110 195,80 215,65
+            235,50 255,42 275,60 295,48 315,38 335,32 355,45 375,70 395,95
+            415,135 415,135
+          "></polygon>
+<!-- Underforecast Shading Polygon (Jan 21-24 dip) -->
+<polygon fill="url(#area-under-fill)" points="
+            415,135
+            425,155 440,186 455,175 470,148 485,135
+            485,135
+          "></polygon>
+<!-- Line Path Continuous -->
+<path d="
+            M 50,110
+            L 65,102
+            L 85,115
+            L 110,95
+            L 130,85
+            L 155,100
+            L 175,110
+            L 195,80
+            L 215,65
+            L 235,50
+            L 255,42
+            L 275,60
+            L 295,48
+            L 315,38
+            L 335,32
+            L 355,45
+            L 375,70
+            L 395,95
+            L 415,135
+            L 425,155
+            L 440,186
+            L 455,175
+            L 470,148
+            L 485,135
+            L 505,115
+            L 525,90
+            L 545,95
+            L 565,105
+            L 585,112
+            L 600,108
+          " fill="none" stroke="#159A91" stroke-width="2"></path>
+<!-- Marker 1: Max Overforecast (Jan 18 14:00, +4,112 MW) -->
+<circle cx="335" cy="32" fill="#142B3B" r="4" stroke="#159A91" stroke-width="2"></circle>
+<line stroke="#142B3B" stroke-width="1" x1="335" x2="335" y1="32" y2="18"></line>
+<rect fill="#142B3B" height="15" rx="1" width="130" x="270" y="4"></rect>
+<text fill="#FFFFFF" font-family="Inter" font-size="9" font-weight="600" text-anchor="middle" x="335" y="14">Max: +4,112 MW (18 Jan)</text>
+<!-- Marker 2: Max Underforecast (Jan 22 20:00, -2,040 MW) -->
+<circle cx="440" cy="186" fill="#142B3B" r="4" stroke="#7E99AB" stroke-width="2"></circle>
+<line stroke="#142B3B" stroke-width="1" x1="440" x2="440" y1="186" y2="204"></line>
+<rect fill="#142B3B" height="15" rx="1" width="130" x="375" y="204"></rect>
+<text fill="#FFFFFF" font-family="Inter" font-size="9" font-weight="600" text-anchor="middle" x="440" y="215">Min: -2,040 MW (22 Jan)</text>
+</svg>
+</div>
+<div class="mt-4 pt-3 border-t border-border-subtle flex flex-wrap items-center justify-between text-tabular-data font-tabular-data text-text-muted gap-2">
+<span>Persistent positive residual envelope between Jan 14–20 corresponds to North Sea high pressure blocking ridge.</span>
+<span class="text-text-primary font-medium">Monthly Error Range: 6,152 MW</span>
+</div>
+</div>
+</div>
+<!-- Lower Section: Trend & Tail Outliers Table -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Left: Daily Accuracy Trend & Rolling 7-Day MAE -->
+<div class="lg:col-span-5 bg-surface-card border border-border-subtle p-5 rounded-sm flex flex-col justify-between">
+<div class="flex items-start justify-between mb-4">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-text-primary font-semibold">Daily Accuracy Trend & Rolling MAE</h2>
+<p class="font-body-sm text-body-sm text-text-muted">Daily discrete error vs. smoothed 7-day trailing MAE</p>
+</div>
+<div class="flex items-center gap-3 text-label-sm font-label-sm">
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-0.5 bg-sidebar-surface"></span>
+<span class="text-text-muted">Daily MAE</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-0.5 bg-chart-primary"></span>
+<span class="text-chart-primary font-medium">7-Day MAE</span>
+</div>
+</div>
+</div>
+<!-- Trend Chart SVG -->
+<div class="relative w-full h-[220px]">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 460 200">
+<!-- Horizontal Lines -->
+<line stroke="#E4E8EB" stroke-width="1" x1="35" x2="445" y1="20" y2="20"></line>
+<line stroke="#E4E8EB" stroke-width="1" x1="35" x2="445" y1="65" y2="65"></line>
+<line stroke="#E4E8EB" stroke-width="1" x1="35" x2="445" y1="110" y2="110"></line>
+<line stroke="#E4E8EB" stroke-width="1" x1="35" x2="445" y1="155" y2="155"></line>
+<line stroke="#CBD5DB" stroke-width="1" x1="35" x2="445" y1="180" y2="180"></line>
+<!-- Y-Axis -->
+<text fill="#8A9EA8" font-family="Inter" font-size="9" text-anchor="end" x="28" y="24">3,000</text>
+<text fill="#8A9EA8" font-family="Inter" font-size="9" text-anchor="end" x="28" y="69">2,250</text>
+<text fill="#8A9EA8" font-family="Inter" font-size="9" text-anchor="end" x="28" y="114">1,500</text>
+<text fill="#8A9EA8" font-family="Inter" font-size="9" text-anchor="end" x="28" y="159">750</text>
+<!-- North Sea Storm Band (Jan 16-21) highlight area -->
+<rect fill="#142B3B" fill-opacity="0.04" height="160" width="70" x="210" y="20"></rect>
+<text fill="#526B7A" font-family="Inter" font-size="8" font-weight="600" text-anchor="middle" x="245" y="32">Storm Passage</text>
+<!-- Series 1: Daily MAE (Navy #142B3B - jagged line) -->
+<path d="
+            M 45,140
+            L 70,145
+            L 95,130
+            L 120,135
+            L 145,115
+            L 170,120
+            L 195,85
+            L 220,40
+            L 245,35
+            L 270,55
+            L 295,95
+            L 320,130
+            L 345,140
+            L 370,125
+            L 395,135
+            L 420,130
+            L 440,128
+          " fill="none" stroke="#142B3B" stroke-dasharray="2 1" stroke-width="1.5"></path>
+<!-- Series 2: 7-Day Rolling MAE (Teal #159A91 - smoothed) -->
+<path d="
+            M 45,138
+            C 90,140 140,130 180,110
+            C 210,85 240,48 265,52
+            C 290,65 330,110 360,130
+            C 390,135 420,132 440,130
+          " fill="none" stroke="#159A91" stroke-width="2.5"></path>
+<!-- X-Axis Labels -->
+<text fill="#8A9EA8" font-family="Inter" font-size="8" text-anchor="middle" x="45" y="192">01 Jan</text>
+<text fill="#8A9EA8" font-family="Inter" font-size="8" text-anchor="middle" x="145" y="192">08 Jan</text>
+<text fill="#142B3B" font-family="Inter" font-size="8" font-weight="600" text-anchor="middle" x="245" y="192">18 Jan</text>
+<text fill="#8A9EA8" font-family="Inter" font-size="8" text-anchor="middle" x="345" y="192">24 Jan</text>
+<text fill="#8A9EA8" font-family="Inter" font-size="8" text-anchor="middle" x="440" y="192">31 Jan</text>
+</svg>
+</div>
+<div class="mt-4 pt-3 border-t border-border-subtle flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-chart-primary mt-0.5">trending_up</span>
+<p class="font-tabular-data text-tabular-data text-text-muted">
+          Forecast accuracy deteriorated sharply during mid-month North Sea frontal passage (Jan 16–21), peaking at 2,890 MW daily MAE before recovering to baseline (1,240 MW).
+        </p>
+</div>
+</div>
+<!-- Right: Largest Forecast Error Events Table -->
+<div class="lg:col-span-7 bg-surface-card border border-border-subtle rounded-sm flex flex-col justify-between overflow-hidden">
+<div class="p-5 pb-3 flex items-center justify-between border-b border-border-subtle">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-text-primary font-semibold">Largest Forecast Error Events (Top Tail Deviations)</h2>
+<p class="font-body-sm text-body-sm text-text-muted">Highest absolute deviations with balancing mechanism impact diagnostics</p>
+</div>
+<span class="font-label-sm text-label-sm text-text-faint uppercase tracking-wider">Top 5 Records</span>
+</div>
+<!-- High-Density Analytical Table -->
+<div class="overflow-x-auto">
+<table class="w-full border-collapse text-left">
+<thead>
+<tr class="bg-surface-canvas border-b border-border-subtle text-text-muted font-label-sm text-label-sm uppercase tracking-wider">
+<th class="py-2.5 px-3 font-semibold text-center w-12">#</th>
+<th class="py-2.5 px-3 font-semibold">Settlement Period</th>
+<th class="py-2.5 px-3 font-semibold text-right">Forecast</th>
+<th class="py-2.5 px-3 font-semibold text-right">Actual</th>
+<th class="py-2.5 px-3 font-semibold text-right">Abs Error (Δ)</th>
+<th class="py-2.5 px-3 font-semibold text-center">Direction</th>
+<th class="py-2.5 px-3 font-semibold">Market Impact Diagnostic</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-subtle font-tabular-data text-tabular-data">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-canvas/80 transition-colors">
+<td class="py-2.5 px-3 text-center text-text-muted font-medium">1</td>
+<td class="py-2.5 px-3 text-text-primary font-medium">18 Jan 2026 14:00</td>
+<td class="py-2.5 px-3 text-right text-text-muted">17,450 MW</td>
+<td class="py-2.5 px-3 text-right text-text-muted">13,338 MW</td>
+<td class="py-2.5 px-3 text-right font-semibold text-text-primary">+4,112 MW</td>
+<td class="py-2.5 px-3 text-center">
+<span class="inline-block px-2 py-0.5 rounded-sm bg-surface-canvas text-chart-primary font-medium text-label-sm font-label-sm">Overforecast</span>
+</td>
+<td class="py-2.5 px-3 text-text-muted">High System Imbalance / BMRS Long</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-canvas/80 transition-colors">
+<td class="py-2.5 px-3 text-center text-text-muted font-medium">2</td>
+<td class="py-2.5 px-3 text-text-primary font-medium">19 Jan 2026 04:00</td>
+<td class="py-2.5 px-3 text-right text-text-muted">19,820 MW</td>
+<td class="py-2.5 px-3 text-right text-text-muted">16,040 MW</td>
+<td class="py-2.5 px-3 text-right font-semibold text-text-primary">+3,780 MW</td>
+<td class="py-2.5 px-3 text-center">
+<span class="inline-block px-2 py-0.5 rounded-sm bg-surface-canvas text-chart-primary font-medium text-label-sm font-label-sm">Overforecast</span>
+</td>
+<td class="py-2.5 px-3 text-text-muted">Sell-side Cashout Penalty Exposure</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-canvas/80 transition-colors">
+<td class="py-2.5 px-3 text-center text-text-muted font-medium">3</td>
+<td class="py-2.5 px-3 text-text-primary font-medium">16 Jan 2026 18:00</td>
+<td class="py-2.5 px-3 text-right text-text-muted">15,200 MW</td>
+<td class="py-2.5 px-3 text-right text-text-muted">11,890 MW</td>
+<td class="py-2.5 px-3 text-right font-semibold text-text-primary">+3,310 MW</td>
+<td class="py-2.5 px-3 text-center">
+<span class="inline-block px-2 py-0.5 rounded-sm bg-surface-canvas text-chart-primary font-medium text-label-sm font-label-sm">Overforecast</span>
+</td>
+<td class="py-2.5 px-3 text-text-muted">B3 Scotland Curtailment Gap</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-canvas/80 transition-colors">
+<td class="py-2.5 px-3 text-center text-text-muted font-medium">4</td>
+<td class="py-2.5 px-3 text-text-primary font-medium">22 Jan 2026 20:00</td>
+<td class="py-2.5 px-3 text-right text-text-muted">3,100 MW</td>
+<td class="py-2.5 px-3 text-right text-text-muted">5,140 MW</td>
+<td class="py-2.5 px-3 text-right font-semibold text-text-primary">-2,040 MW</td>
+<td class="py-2.5 px-3 text-center">
+<span class="inline-block px-2 py-0.5 rounded-sm bg-sidebar-surface text-sidebar-text font-medium text-label-sm font-label-sm">Underforecast</span>
+</td>
+<td class="py-2.5 px-3 text-text-muted">Short Position Spike Distress</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-canvas/80 transition-colors">
+<td class="py-2.5 px-3 text-center text-text-muted font-medium">5</td>
+<td class="py-2.5 px-3 text-text-primary font-medium">17 Jan 2026 11:00</td>
+<td class="py-2.5 px-3 text-right text-text-muted">16,900 MW</td>
+<td class="py-2.5 px-3 text-right text-text-muted">14,920 MW</td>
+<td class="py-2.5 px-3 text-right font-semibold text-text-primary">+1,980 MW</td>
+<td class="py-2.5 px-3 text-center">
+<span class="inline-block px-2 py-0.5 rounded-sm bg-surface-canvas text-chart-primary font-medium text-label-sm font-label-sm">Overforecast</span>
+</td>
+<td class="py-2.5 px-3 text-text-muted">Imbalance Neutral / Rapid Reserve Call</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer Actions & Audit Hash -->
+<div class="p-3 bg-surface-canvas border-t border-border-subtle flex flex-wrap items-center justify-between gap-3 text-tabular-data font-tabular-data text-text-faint">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[15px] text-chart-primary">verified_user</span>
+<span>BMRS Run Verification ID: <span class="font-mono text-text-primary">ELEXON-JAN26-FVER-9041</span></span>
+</div>
+<div class="flex items-center gap-3">
+<button class="text-text-primary hover:text-chart-primary font-medium transition-colors flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[14px]">download</span>
+<span>Export CSV</span>
+</button>
+<span>|</span>
+<button class="text-text-primary hover:text-chart-primary font-medium transition-colors flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[14px]">code</span>
+<span>API JSON</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div></div></main></div></body></html>

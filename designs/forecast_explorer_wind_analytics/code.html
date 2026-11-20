@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "sidebar-surface": "#142B3B", "on-tertiary": "#ffffff", "sidebar-text-muted": "#7E99AB", "on-secondary-fixed-variant": "#00504b", "surface-container-lowest": "#ffffff", "error": "#ba1a1a", "primary-fixed-dim": "#b2c9de", "secondary": "#006a64", "tertiary-fixed-dim": "#a8cae9", "surface-container-high": "#e6e8e9", "surface-canvas": "#F5F7F8", "outline-variant": "#c3c7cc", "on-tertiary-fixed": "#001e30", "on-surface": "#191c1d", "on-primary": "#ffffff", "chart-grid": "#E4E8EB", "on-tertiary-fixed-variant": "#284a63", "sidebar-border": "#20435C", "on-secondary-fixed": "#00201e", "chart-secondary": "#142B3B", "inverse-surface": "#2e3132", "surface": "#f8fafb", "surface-container-highest": "#e1e3e4", "primary-fixed": "#cee5fb", "on-error": "#ffffff", "chart-tertiary": "#7E99AB", "surface-dim": "#d8dadb", "surface-container-low": "#f2f4f5", "surface-variant": "#e1e3e4", "text-faint": "#8A9EA8", "on-secondary-container": "#00716a", "border-strong": "#CBD5DB", "on-background": "#191c1d", "on-surface-variant": "#43474c", "tertiary-fixed": "#cbe6ff", "outline": "#73777c", "surface-bright": "#f8fafb", "text-primary": "#142B3B", "border-subtle": "#E4E8EB", "on-error-container": "#93000a", "on-primary-container": "#7c93a6", "sidebar-surface-active": "#20435C", "background": "#f8fafb", "surface-tint": "#4b6173", "secondary-fixed-dim": "#69d8ce", "surface-card": "#FFFFFF", "secondary-container": "#86f5ea", "on-secondary": "#ffffff", "primary-container": "#142b3b", "on-primary-fixed-variant": "#33495a", "surface-container": "#eceeef", "inverse-primary": "#b2c9de", "on-primary-fixed": "#051e2d", "inverse-on-surface": "#eff1f2", "chart-primary": "#159A91", "error-container": "#ffdad6", "text-muted": "#526B7A", "tertiary": "#001726", "secondary-fixed": "#86f5ea", "tertiary-container": "#022c44", "on-tertiary-container": "#7394b0", "primary": "#001625", "sidebar-text": "#F5F7F8", "sidebar-surface-hover": "#1C384D" }, borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, spacing: { "space-sm": "0.5rem", "space-lg": "1rem", "space-md": "0.75rem", "gutter": "1rem", "space-xs": "0.25rem", "space-xl": "1.5rem", "margin": "1.5rem" }, fontFamily: { "tabular-data": ["Inter"], "label-sm": ["Inter"], "body-lg": ["Inter"], "headline-xl": ["Inter"], "body-md": ["Inter"], "body-sm": ["Inter"], "headline-lg": ["Inter"], "headline-md": ["Inter"], "label-lg": ["Inter"], "label-md": ["Inter"], "headline-sm": ["Inter"], "kpi-value": ["Inter"] }, fontSize: { "tabular-data": ["12px", { lineHeight: "16px", fontWeight: "400" }], "label-sm": ["10px", { lineHeight: "12px", letterSpacing: "0.05em", fontWeight: "600" }], "body-lg": ["15px", { lineHeight: "22px", fontWeight: "400" }], "headline-xl": ["28px", { lineHeight: "36px", letterSpacing: "-0.02em", fontWeight: "600" }], "body-md": ["13px", { lineHeight: "18px", fontWeight: "400" }], "body-sm": ["12px", { lineHeight: "16px", fontWeight: "400" }], "headline-lg": ["20px", { lineHeight: "28px", letterSpacing: "-0.015em", fontWeight: "600" }], "headline-md": ["16px", { lineHeight: "24px", letterSpacing: "-0.01em", fontWeight: "600" }], "label-lg": ["13px", { lineHeight: "16px", letterSpacing: "0.01em", fontWeight: "500" }], "label-md": ["11px", { lineHeight: "14px", letterSpacing: "0.03em", fontWeight: "500" }], "headline-sm": ["14px", { lineHeight: "20px", letterSpacing: "-0.005em", fontWeight: "600" }], "kpi-value": ["24px", { lineHeight: "28px", letterSpacing: "-0.02em", fontWeight: "600" }] } } } };</script></head><body class="bg-surface-canvas text-on-surface font-body-md text-body-md"><aside class="fixed left-0 top-0 h-screen w-60 bg-sidebar-surface border-r border-sidebar-border z-50 flex flex-col justify-between"><div class="flex flex-col"><div class="h-[60px] flex items-center px-4 gap-3 border-b border-sidebar-border"><img alt="Wind Analytics Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WUaIDiIWasAbS52F-u33Knh7pC0_DPKiJP67pgRUw7xyIgiv2K5vq9-QaAafkMBzFiJlByVKkXlGYx0rwPCGnTw_ZTnUolFA9w0PyRupsPXr44gJI6LTTB4skhU6yVpftvjHnAmx5uHO2T7qbe4rLyTdaUfA-NqdKPkdLjf7fJZmSuR6DyQeuOeyKfDxs5GREvQfwQhJXW3-Qu_WNE15SLrtYjUhPJKktfeHZE1GhQ"/><div class="flex flex-col"><div class="flex items-center gap-1.5"><span class="font-headline-sm text-headline-sm text-sidebar-text tracking-tight font-semibold">Wind Analytics</span></div><span class="font-label-sm text-label-sm text-sidebar-text-muted uppercase tracking-wider">UK Grid / BM</span></div></div><div class="px-2 py-4"><div class="px-2.5 pb-2 font-label-sm text-label-sm uppercase tracking-wider text-sidebar-text-muted">Analytical Suite</div><nav class="flex flex-col gap-0.5" data-active-classes="bg-sidebar-surface-active text-sidebar-text border-l-2 border-chart-primary font-medium"><a class="flex items-center gap-3 px-2.5 py-2 rounded text-sidebar-text-muted hover:bg-sidebar-surface-hover hover:text-sidebar-text transition-colors border-l-2 border-transparent font-label-lg text-label-lg" data-path="overview" href="#"><span class="material-symbols-outlined text-[18px]">grid_view</span><span>Overview</span></a><a aria-current="page" class="flex items-center gap-3 px-2.5 py-2 rounded transition-colors bg-sidebar-surface-active text-sidebar-text border-l-2 border-chart-primary font-medium" data-path="forecast-explorer" href="#"><span class="material-symbols-outlined text-[18px]">query_stats</span><span>Forecast Explorer</span></a><a class="flex items-center gap-3 px-2.5 py-2 rounded text-sidebar-text-muted hover:bg-sidebar-surface-hover hover:text-sidebar-text transition-colors border-l-2 border-transparent font-label-lg text-label-lg" data-path="accuracy-analysis" href="#"><span class="material-symbols-outlined text-[18px]">ssid_chart</span><span>Accuracy Analysis</span></a><a class="flex items-center gap-3 px-2.5 py-2 rounded text-sidebar-text-muted hover:bg-sidebar-surface-hover hover:text-sidebar-text transition-colors border-l-2 border-transparent font-label-lg text-label-lg" data-path="data-sources" href="#"><span class="material-symbols-outlined text-[18px]">database</span><span>Data Sources</span></a><a class="flex items-center gap-3 px-2.5 py-2 rounded text-sidebar-text-muted hover:bg-sidebar-surface-hover hover:text-sidebar-text transition-colors border-l-2 border-transparent font-label-lg text-label-lg" data-path="settings" href="#"><span class="material-symbols-outlined text-[18px]">tune</span><span>Settings</span></a></nav></div></div><div class="p-3 border-t border-sidebar-border bg-sidebar-surface"><div class="flex items-center justify-between px-2 py-1.5 rounded bg-primary/20"><div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-chart-primary"></span><span class="font-label-sm text-label-sm text-sidebar-text tracking-normal">Elexon BMRS Live</span></div><span class="font-label-sm text-label-sm text-sidebar-text-muted">15:00 UK</span></div></div></aside><div class="pl-60 min-h-screen flex flex-col"><header class="fixed top-0 left-60 right-0 h-[60px] bg-surface-card border-b border-border-subtle z-40 px-6 flex items-center justify-between"><div class="flex items-center gap-3"><img alt="Wind Analytics Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WUaIDiIWasAbS52F-u33Knh7pC0_DPKiJP67pgRUw7xyIgiv2K5vq9-QaAafkMBzFiJlByVKkXlGYx0rwPCGnTw_ZTnUolFA9w0PyRupsPXr44gJI6LTTB4skhU6yVpftvjHnAmx5uHO2T7qbe4rLyTdaUfA-NqdKPkdLjf7fJZmSuR6DyQeuOeyKfDxs5GREvQfwQhJXW3-Qu_WNE15SLrtYjUhPJKktfeHZE1GhQ"/><span class="font-headline-sm text-headline-sm text-text-primary uppercase tracking-tight">Analytical Workspace</span></div><div class="flex items-center gap-3"><div class="h-8 px-2.5 bg-surface-canvas border border-border-strong rounded flex items-center gap-2"><span class="material-symbols-outlined text-[15px] text-text-muted">calendar_today</span><span class="font-tabular-data text-tabular-data text-text-primary font-medium">01 Jan 2026 – 31 Jan 2026</span></div><div class="h-8 px-2.5 bg-surface-canvas border border-border-strong rounded flex items-center gap-2"><span class="material-symbols-outlined text-[15px] text-chart-primary">timelapse</span><span class="font-tabular-data text-tabular-data text-text-primary">Cutoff: 15:00 UK (D-1 Gate Closure)</span><span class="material-symbols-outlined text-[16px] text-text-muted">arrow_drop_down</span></div><div class="hidden xl:flex items-center px-2"><span class="font-tabular-data text-tabular-data text-text-muted">Updated: 31 Jan 2026, 23:59 GMT</span></div><div class="h-4 w-px bg-border-subtle mx-1 hidden sm:block"></div><div class="flex items-center gap-2.5 pl-1"><div class="flex flex-col text-right"><span class="font-label-md text-label-md text-text-primary leading-none">GB Power Trading</span><span class="font-label-sm text-label-sm text-text-muted leading-none mt-1">Desk Live</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="pt-[60px] w-full min-h-screen bg-surface-canvas"><div class="max-w-[1440px] mx-auto p-7"><div class="flex flex-col w-full gap-4">
+<!-- Breadcrumb & Workspace Title Banner -->
+<div class="flex flex-col md:flex-row md:items-center justify-between pb-1 gap-2">
+<div>
+<div class="flex items-center gap-2 font-label-sm text-label-sm text-text-muted uppercase tracking-wider mb-1">
+<span>National Grid ESO / BMRS</span>
+<span class="text-border-strong">/</span>
+<span>Wind Power Generation Outturn</span>
+<span class="text-border-strong">/</span>
+<span class="text-chart-primary font-semibold">Audit Slice: Storm Eowyn Window</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-text-primary tracking-tight font-semibold">
+        Forecast Explorer & Settlement Audit
+      </h1>
+<p class="font-body-md text-body-md text-text-muted mt-0.5">
+        Detailed half-hourly settlement period breakdown, historical forecast run revisions, and outturn validation.
+      </p>
+</div>
+<!-- Quick Meta Status Badges -->
+<div class="flex items-center gap-3">
+<div class="bg-surface-card px-3 py-1.5 rounded-sm flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-chart-primary"></span>
+<span class="font-label-md text-label-md text-text-primary uppercase tracking-normal">Grid Outturn: Final Settled</span>
+</div>
+<div class="bg-surface-card px-3 py-1.5 rounded-sm font-tabular-data text-tabular-data text-text-muted">
+        Ref: <span class="font-medium text-text-primary">ELEX-WF-744P</span>
+</div>
+</div>
+</div>
+<!-- Section 1: Filter & Control Strip -->
+<div class="bg-surface-card p-3 rounded-sm flex flex-col gap-3">
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-3 items-center">
+<!-- Date Range Filter -->
+<div class="xl:col-span-4 flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-text-muted uppercase tracking-wider">Evaluation Slice Window</label>
+<div class="h-8 px-2.5 bg-surface-canvas rounded-sm flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[15px] text-text-muted">date_range</span>
+<span class="font-tabular-data text-tabular-data text-text-primary font-medium">18 Jan 2026 – 20 Jan 2026</span>
+</div>
+<span class="font-label-sm text-label-sm bg-surface-card px-1.5 py-0.5 rounded text-chart-primary font-semibold uppercase">Selected Event</span>
+</div>
+</div>
+<!-- Delivery Hour Range -->
+<div class="xl:col-span-2 flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-text-muted uppercase tracking-wider">Delivery Hour Filter</label>
+<div class="h-8 px-2 bg-surface-canvas rounded-sm flex items-center justify-between">
+<span class="font-tabular-data text-tabular-data text-text-primary">All Hours (00:00 - 23:00)</span>
+<span class="material-symbols-outlined text-[15px] text-text-muted">arrow_drop_down</span>
+</div>
+</div>
+<!-- Cutoff Selector -->
+<div class="xl:col-span-3 flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-text-muted uppercase tracking-wider">Cutoff Gate Timing</label>
+<div class="grid grid-cols-4 h-8 bg-surface-canvas p-0.5 rounded-sm">
+<button class="font-label-sm text-label-sm text-text-muted hover:text-text-primary text-center" type="button">11:00 DA</button>
+<button class="font-label-sm text-label-sm bg-primary-container text-sidebar-text font-semibold rounded-sm text-center" type="button">15:00 DA</button>
+<button class="font-label-sm text-label-sm text-text-muted hover:text-text-primary text-center" type="button">17:00 DA</button>
+<button class="font-label-sm text-label-sm text-text-muted hover:text-text-primary text-center" type="button">Intra 4H</button>
+</div>
+</div>
+<!-- Revision Toggle & Actions -->
+<div class="xl:col-span-3 flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-text-muted uppercase tracking-wider">Model Comparison</label>
+<div class="flex items-center gap-2">
+<button class="h-8 px-3 rounded-sm bg-surface-canvas text-text-primary font-label-md text-label-md flex-1 flex items-center justify-center gap-1.5 hover:bg-surface-container" type="button">
+<span class="w-1.5 h-1.5 rounded-full bg-chart-primary"></span>
+<span>Init vs Gate (Diff)</span>
+</button>
+<button class="h-8 px-3 rounded-sm bg-primary-container text-sidebar-text font-label-md text-label-md hover:bg-sidebar-surface-hover transition-colors font-medium" type="button">
+            Filter
+          </button>
+<button class="h-8 px-2.5 rounded-sm bg-surface-canvas text-chart-primary font-label-md text-label-md hover:bg-surface-container flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[15px]">file_download</span>
+<span>CSV</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Quick Filter Filter Strip -->
+<div class="flex flex-wrap items-center justify-between pt-2 gap-2">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-text-muted uppercase tracking-wider mr-1">Triage Flags:</span>
+<button class="h-6 px-2.5 rounded-sm bg-surface-canvas font-tabular-data text-tabular-data text-text-primary hover:bg-surface-container flex items-center gap-1.5" type="button">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+<span>Peak Ramp Errors (>2,500 MW)</span>
+</button>
+<button class="h-6 px-2.5 rounded-sm bg-surface-canvas font-tabular-data text-tabular-data text-text-muted hover:text-text-primary hover:bg-surface-container" type="button">
+          Underforecast Only
+        </button>
+<button class="h-6 px-2.5 rounded-sm bg-surface-canvas font-tabular-data text-tabular-data text-text-muted hover:text-text-primary hover:bg-surface-container" type="button">
+          Overforecast Only
+        </button>
+<button class="h-6 px-2.5 rounded-sm bg-primary-container text-sidebar-text font-tabular-data text-tabular-data font-medium" type="button">
+          All Periods (744)
+        </button>
+</div>
+<div class="flex items-center gap-4 text-text-muted font-tabular-data text-tabular-data">
+<span>Matching Sample: <strong class="text-text-primary font-medium">48 SPs (100.0%)</strong></span>
+<span>Mean Absolute Error: <strong class="text-text-primary font-medium">1,482.14 MW</strong></span>
+<span>Bias: <strong class="text-text-primary font-medium">+1,104.20 MW</strong></span>
+</div>
+</div>
+</div>
+<!-- Section 2: Forecast vs Actual Graphical Visualisation (SVG) -->
+<div class="bg-surface-card rounded-sm p-4 flex flex-col gap-3">
+<!-- Chart Header & Legend Bar -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2">
+<div class="flex items-center gap-3">
+<span class="font-headline-sm text-headline-sm text-text-primary font-semibold">48-Hour Half-Hourly Profile Trace</span>
+<span class="font-label-sm text-label-sm bg-surface-canvas text-text-muted px-2 py-0.5 rounded font-mono">18 JAN 00:00 (SP 01) → 19 JAN 23:30 (SP 48)</span>
+</div>
+<!-- Chart Legend -->
+<div class="flex items-center gap-5">
+<div class="flex items-center gap-2">
+<div class="w-3 h-1 bg-chart-primary rounded-full"></div>
+<span class="font-label-sm text-label-sm text-text-primary font-medium">Actual Generation (MW)</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-1 bg-chart-secondary rounded-full"></div>
+<span class="font-label-sm text-label-sm text-text-primary font-medium">15:00 D-1 Cutoff Forecast</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-0.5 bg-chart-tertiary"></div>
+<span class="font-label-sm text-label-sm text-text-muted">11:00 D-1 Early Run</span>
+</div>
+<div class="flex items-center gap-1.5">
+<div class="w-2.5 h-2.5 bg-primary-container/10"></div>
+<span class="font-label-sm text-label-sm text-text-muted">Overforecast Delta</span>
+</div>
+</div>
+</div>
+<!-- Active Inspection Hover Strip Banner -->
+<div class="bg-surface-canvas p-2.5 rounded-sm flex flex-col md:flex-row md:items-center justify-between text-text-primary font-tabular-data text-tabular-data gap-2">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-chart-primary text-[18px]">verified</span>
+<span class="font-semibold text-text-primary">Inspecting Delivery: 18 Jan 2026 16:00 (SP 33)</span>
+<span class="text-text-muted">|</span>
+<span class="text-text-muted">Run ID: 14:48 GMT (12m pre-cutoff gate)</span>
+</div>
+<div class="flex items-center gap-6">
+<div>Forecast: <strong class="font-semibold text-text-primary">18,120 MW</strong></div>
+<div>Actual: <strong class="font-semibold text-chart-primary">15,040 MW</strong></div>
+<div>Variance: <span class="bg-surface-card px-2 py-0.5 rounded font-semibold text-chart-secondary">+3,080 MW (+20.4%)</span></div>
+<button class="text-chart-primary text-label-sm uppercase font-semibold hover:underline" type="button">Lock Pin</button>
+</div>
+</div>
+<!-- SVG Area Chart -->
+<div class="w-full h-64 relative bg-surface-card overflow-hidden">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 1000 240">
+<defs>
+<pattern height="40" id="grid-pattern" patternunits="userSpaceOnUse" width="100">
+<line stroke="#E4E8EB" stroke-width="1" x1="0" x2="1000" y1="40" y2="40"></line>
+</pattern>
+</defs>
+<!-- Background horizontal rules -->
+<rect fill="url(#grid-pattern)" height="240" width="1000"></rect>
+<!-- Y-Axis labels placed inside SVG coordinate system -->
+<text fill="#8A9EA8" font-family="Inter" font-size="10" x="10" y="24">24,000 MW</text>
+<text fill="#8A9EA8" font-family="Inter" font-size="10" x="10" y="64">20,000 MW</text>
+<text fill="#8A9EA8" font-family="Inter" font-size="10" x="10" y="104">16,000 MW</text>
+<text fill="#8A9EA8" font-family="Inter" font-size="10" x="10" y="144">12,000 MW</text>
+<text fill="#8A9EA8" font-family="Inter" font-size="10" x="10" y="184">8,000 MW</text>
+<text fill="#8A9EA8" font-family="Inter" font-size="10" x="10" y="224">4,000 MW</text>
+<!-- Shaded Gap Polygon between 15:00 Forecast and Actual (Overforecast delta) -->
+<!-- Forecast Path Coordinates: 80,180 -> 180,140 -> 280,105 -> 380,60 -> 480,45 -> 580,70 -> 680,110 -> 780,150 -> 880,165 -> 960,180 -->
+<!-- Actual Path Coordinates: 80,195 -> 180,165 -> 280,140 -> 380,105 -> 480,85 -> 580,100 -> 680,135 -> 780,160 -> 880,172 -> 960,190 -->
+<polygon fill="#142B3B" fill-opacity="0.08" points="80,180 180,140 280,105 380,60 480,45 580,70 680,110 780,150 880,165 960,180 960,190 880,172 780,160 680,135 580,100 480,85 380,105 280,140 180,165 80,195"></polygon>
+<!-- Curve 1: 11:00 D-1 Early Model Run (Dotted line #7E99AB) -->
+<polyline fill="none" points="80,170 180,125 280,80 380,45 480,30 580,55 680,95 780,130 880,150 960,165" stroke="#7E99AB" stroke-dasharray="3 3" stroke-width="1.5"></polyline>
+<!-- Curve 2: 15:00 D-1 Cutoff Official Forecast (Solid Deep Navy #142B3B) -->
+<polyline fill="none" points="80,180 180,140 280,105 380,60 480,45 580,70 680,110 780,150 880,165 960,180" stroke="#142B3B" stroke-width="2.5"></polyline>
+<!-- Curve 3: Actual Metered Generation (Solid Teal #159A91) -->
+<polyline fill="none" points="80,195 180,165 280,140 380,105 480,85 580,100 680,135 780,160 880,172 960,190" stroke="#159A91" stroke-width="2.5"></polyline>
+<!-- Active Inspection Crosshair for SP 33 (X = 480, Forecast = 45, Actual = 85) -->
+<line stroke="#159A91" stroke-dasharray="2 2" stroke-width="1" x1="480" x2="480" y1="20" y2="230"></line>
+<circle cx="480" cy="45" fill="#142B3B" r="4.5"></circle>
+<circle cx="480" cy="85" fill="#159A91" r="4.5"></circle>
+<!-- Vertical Settlement Divider Markers -->
+<line stroke="#CBD5DB" stroke-width="1" x1="280" x2="280" y1="220" y2="230"></line>
+<line stroke="#CBD5DB" stroke-width="1" x1="520" x2="520" y1="220" y2="230"></line>
+<line stroke="#CBD5DB" stroke-width="1" x1="760" x2="760" y1="220" y2="230"></line>
+</svg>
+</div>
+<!-- Chart Bottom X-Axis Ticks & Settlement Periods -->
+<div class="grid grid-cols-6 pt-1 text-center font-tabular-data text-tabular-data text-text-muted">
+<div>
+<span class="block text-text-primary font-medium">18 Jan 00:00</span>
+<span class="text-label-sm">SP 01</span>
+</div>
+<div>
+<span class="block text-text-primary font-medium">18 Jan 08:00</span>
+<span class="text-label-sm">SP 17</span>
+</div>
+<div>
+<span class="block text-text-primary font-medium">18 Jan 16:00</span>
+<span class="text-label-sm font-semibold text-chart-primary">SP 33 [Peak]</span>
+</div>
+<div>
+<span class="block text-text-primary font-medium">19 Jan 00:00</span>
+<span class="text-label-sm">SP 01 (D+1)</span>
+</div>
+<div>
+<span class="block text-text-primary font-medium">19 Jan 08:00</span>
+<span class="text-label-sm">SP 17</span>
+</div>
+<div>
+<span class="block text-text-primary font-medium">19 Jan 16:00</span>
+<span class="text-label-sm">SP 33</span>
+</div>
+</div>
+</div>
+<!-- Section 3: Model Ingestion Strip -->
+<div class="bg-surface-card px-4 py-2 rounded-sm flex flex-col md:flex-row md:items-center justify-between text-text-muted font-tabular-data text-tabular-data gap-2">
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-label-sm text-text-primary font-semibold uppercase tracking-wider">Publication Provenance:</span>
+<span class="text-text-primary">ECMWF-HRES-v4.3 + UK MetOffice BLENDED</span>
+<span class="text-border-strong">•</span>
+<span>Cycle Ingestion ID: <code class="font-mono text-text-primary">#UK-WF-20260118-1500-REV3</code></span>
+</div>
+<div class="flex items-center gap-4">
+<span>Elexon Ingestion Latency: <strong class="text-text-primary font-medium">420ms</strong></span>
+<span>Total Evaluated Capacity: <strong class="text-text-primary font-medium">28,450 MW GB Installed</strong></span>
+</div>
+</div>
+<!-- Section 4: Enterprise Settlement Period Data Table -->
+<div class="bg-surface-card rounded-sm flex flex-col">
+<!-- Table Header Toolbar -->
+<div class="p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-text-primary font-semibold">Settlement Period Forecast Records</span>
+<span class="bg-surface-canvas text-text-muted px-2 py-0.5 rounded font-tabular-data text-tabular-data">Showing 14 of 744 Periods</span>
+</div>
+<div class="flex items-center gap-2">
+<!-- Search bar -->
+<div class="h-8 px-2 bg-surface-canvas rounded-sm flex items-center gap-2 w-64">
+<span class="material-symbols-outlined text-[15px] text-text-muted">search</span>
+<input class="bg-transparent border-none outline-none text-text-primary font-tabular-data text-tabular-data w-full placeholder:text-text-faint" placeholder="Search SP, time, or MW..." type="text"/>
+</div>
+<!-- Columns Toggle button -->
+<button class="h-8 px-2.5 rounded-sm bg-surface-canvas font-label-md text-label-md text-text-primary flex items-center gap-1.5 hover:bg-surface-container" type="button">
+<span class="material-symbols-outlined text-[15px]">view_column</span>
+<span>Columns (8/8)</span>
+</button>
+</div>
+</div>
+<!-- Table Container -->
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-canvas h-8 text-text-muted font-label-sm text-label-sm uppercase tracking-wider">
+<th class="px-3 py-1 font-semibold">
+<div class="flex items-center gap-1 cursor-pointer">
+<span>Delivery Time (SP)</span>
+<span class="material-symbols-outlined text-[13px] text-text-primary">arrow_drop_down</span>
+</div>
+</th>
+<th class="px-3 py-1 font-semibold">
+<div class="flex items-center gap-1 cursor-pointer">
+<span>Forecast Published</span>
+</div>
+</th>
+<th class="px-3 py-1 font-semibold">
+<div class="flex items-center gap-1 cursor-pointer">
+<span>Forecast Run</span>
+</div>
+</th>
+<th class="px-3 py-1 text-right font-semibold">
+<div class="flex items-center justify-end gap-1 cursor-pointer">
+<span>Forecast (MW)</span>
+</div>
+</th>
+<th class="px-3 py-1 text-right font-semibold">
+<div class="flex items-center justify-end gap-1 cursor-pointer">
+<span>Actual (MW)</span>
+</div>
+</th>
+<th class="px-3 py-1 text-right font-semibold">
+<div class="flex items-center justify-end gap-1 cursor-pointer">
+<span>Error Delta (MW)</span>
+<span class="material-symbols-outlined text-[13px]">unfold_more</span>
+</div>
+</th>
+<th class="px-3 py-1 text-right font-semibold">
+<div class="flex items-center justify-end gap-1 cursor-pointer">
+<span>Error %</span>
+</div>
+</th>
+<th class="px-3 py-1 text-center font-semibold">Action</th>
+</tr>
+</thead>
+<tbody class="font-tabular-data text-tabular-data text-text-primary divide-y divide-border-subtle">
+<!-- Row 1 (Inspected Peak Row) -->
+<tr class="bg-chart-primary/5 hover:bg-surface-canvas transition-colors">
+<td class="px-3 py-2 font-medium">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-chart-primary"></span>
+<span>18 Jan 2026 16:00 (SP 33)</span>
+</div>
+</td>
+<td class="px-3 py-2 text-text-muted">17 Jan 2026 14:48 GMT</td>
+<td class="px-3 py-2">
+<span class="px-1.5 py-0.5 bg-surface-canvas rounded text-text-primary font-medium text-[11px]">D-1 15:00 Final</span>
+</td>
+<td class="px-3 py-2 text-right font-medium">18,120.00</td>
+<td class="px-3 py-2 text-right font-semibold text-chart-primary">15,040.00</td>
+<td class="px-3 py-2 text-right font-medium text-chart-secondary">
+<span class="bg-surface-canvas px-1 py-0.5 rounded">+3,080.00</span>
+</td>
+<td class="px-3 py-2 text-right font-semibold text-chart-secondary">+20.48%</td>
+<td class="px-3 py-2 text-center">
+<button class="text-chart-primary font-label-md text-label-md hover:underline font-semibold" type="button">Audit Trail</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-canvas transition-colors">
+<td class="px-3 py-2">18 Jan 2026 15:30 (SP 32)</td>
+<td class="px-3 py-2 text-text-muted">17 Jan 2026 14:48 GMT</td>
+<td class="px-3 py-2">
+<span class="px-1.5 py-0.5 bg-surface-canvas rounded text-text-primary text-[11px]">D-1 15:00 Final</span>
+</td>
+<td class="px-3 py-2 text-right">17,890.00</td>
+<td class="px-3 py-2 text-right">15,220.00</td>
+<td class="px-3 py-2 text-right text-chart-secondary">+2,670.00</td>
+<td class="px-3 py-2 text-right font-medium text-chart-secondary">+17.54%</td>
+<td class="px-3 py-2 text-center">
+<button class="text-chart-primary font-label-md text-label-md hover:underline" type="button">Audit Trail</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-canvas transition-colors">
+<td class="px-3 py-2">18 Jan 2026 15:00 (SP 31)</td>
+<td class="px-3 py-2 text-text-muted">17 Jan 2026 14:48 GMT</td>
+<td class="px-3 py-2">
+<span class="px-1.5 py-0.5 bg-surface-canvas rounded text-text-primary text-[11px]">D-1 15:00 Final</span>
+</td>
+<td class="px-3 py-2 text-right">17,640.00</td>
+<td class="px-3 py-2 text-right">15,480.00</td>
+<td class="px-3 py-2 text-right text-chart-secondary">+2,160.00</td>
+<td class="px-3 py-2 text-right font-medium text-chart-secondary">+13.95%</td>
+<td class="px-3 py-2 text-center">
+<button class="text-chart-primary font-label-md text-label-md hover:underline" type="button">Audit Trail</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-canvas transition-colors">
+<td class="px-3 py-2">18 Jan 2026 14:30 (SP 30)</td>
+<td class="px-3 py-2 text-text-muted">17 Jan 2026 14:48 GMT</td>
+<td class="px-3 py-2">
+<span class="px-1.5 py-0.5 bg-surface-canvas rounded text-text-primary text-[11px]">D-1 15:00 Final</span>
+</td>
+<td class="px-3 py-2 text-right">17,450.00</td>
+<td class="px-3 py-2 text-right">15,810.00</td>
+<td class="px-3 py-2 text-right text-chart-secondary">+1,640.00</td>
+<td class="px-3 py-2 text-right font-medium text-chart-secondary">+10.37%</td>
+<td class="px-3 py-2 text-center">
+<button class="text-chart-primary font-label-md text-label-md hover:underline" type="button">Audit Trail</button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-canvas transition-colors">
+<td class="px-3 py-2">18 Jan 2026 14:00 (SP 29)</td>
+<td class="px-3 py-2 text-text-muted">17 Jan 2026 14:48 GMT</td>
+<td class="px-3 py-2">
+<span class="px-1.5 py-0.5 bg-surface-canvas rounded text-text-primary text-[11px]">D-1 15:00 Final</span>
+</td>
+<td class="px-3 py-2 text-right">17,110.00</td>
+<td class="px-3 py-2 text-right">16,240.00</td>
+<td class="px-3 py-2 text-right text-chart-secondary">+870.00</td>
+<td class="px-3 py-2 text-right font-medium text-chart-secondary">+5.36%</td>
+<td class="px-3 py-2 text-center">
+<button class="text-chart-primary font-label-md text-label-md hover:underline" type="button">Audit Trail</button>
+</td>
+</tr>
+<!-- Row 6 (Negative Error / Underforecast) -->
+<tr class="hover:bg-surface-canvas transition-colors">
+<td class="px-3 py-2">18 Jan 2026 13:30 (SP 28)</td>
+<td class="px-3 py-2 text-text-muted">17 Jan 2026 14:48 GMT</td>
+<td class="px-3 py-2">
+<span class="px-1.5 py-0.5 bg-surface-canvas rounded text-text-primary text-[11px]">D-1 15:00 Final</span>
+</td>
+<td class="px-3 py-2 text-right">16,420.00</td>
+<td class="px-3 py-2 text-right">16,840.00</td>
+<td class="px-3 py-2 text-right text-text-muted">-420.00</td>
+<td class="px-3 py-2 text-right font-medium text-text-muted">-2.49%</td>
+<td class="px-3 py-2 text-center">
+<button class="text-chart-primary font-label-md text-label-md hover:underline" type="button">Audit Trail</button>
+</td>
+</tr>
+<!-- Row 7 (Negative Error) -->
+<tr class="hover:bg-surface-canvas transition-colors">
+<td class="px-3 py-2">18 Jan 2026 13:00 (SP 27)</td>
+<td class="px-3 py-2 text-text-muted">17 Jan 2026 14:48 GMT</td>
+<td class="px-3 py-2">
+<span class="px-1.5 py-0.5 bg-surface-canvas rounded text-text-primary text-[11px]">D-1 15:00 Final</span>
+</td>
+<td class="px-3 py-2 text-right">15,800.00</td>
+<td class="px-3 py-2 text-right">16,640.00</td>
+<td class="px-3 py-2 text-right text-text-muted">-840.00</td>
+<td class="px-3 py-2 text-right font-medium text-text-muted">-5.05%</td>
+<td class="px-3 py-2 text-center">
+<button class="text-chart-primary font-label-md text-label-md hover:underline" type="button">Audit Trail</button>
+</td>
+</tr>
+<!-- Row 8 (Minimal Delta) -->
+<tr class="hover:bg-surface-canvas transition-colors">
+<td class="px-3 py-2">18 Jan 2026 12:30 (SP 26)</td>
+<td class="px-3 py-2 text-text-muted">17 Jan 2026 14:48 GMT</td>
+<td class="px-3 py-2">
+<span class="px-1.5 py-0.5 bg-surface-canvas rounded text-text-primary text-[11px]">D-1 15:00 Final</span>
+</td>
+<td class="px-3 py-2 text-right">15,210.00</td>
+<td class="px-3 py-2 text-right">15,190.00</td>
+<td class="px-3 py-2 text-right text-text-muted">+20.00</td>
+<td class="px-3 py-2 text-right font-medium text-text-muted">+0.13%</td>
+<td class="px-3 py-2 text-center">
+<button class="text-chart-primary font-label-md text-label-md hover:underline" type="button">Audit Trail</button>
+</td>
+</tr>
+<!-- Row 9 -->
+<tr class="hover:bg-surface-canvas transition-colors">
+<td class="px-3 py-2">18 Jan 2026 12:00 (SP 25)</td>
+<td class="px-3 py-2 text-text-muted">17 Jan 2026 14:48 GMT</td>
+<td class="px-3 py-2">
+<span class="px-1.5 py-0.5 bg-surface-canvas rounded text-text-primary text-[11px]">D-1 15:00 Final</span>
+</td>
+<td class="px-3 py-2 text-right">14,900.00</td>
+<td class="px-3 py-2 text-right">14,350.00</td>
+<td class="px-3 py-2 text-right text-chart-secondary">+550.00</td>
+<td class="px-3 py-2 text-right font-medium text-chart-secondary">+3.83%</td>
+<td class="px-3 py-2 text-center">
+<button class="text-chart-primary font-label-md text-label-md hover:underline" type="button">Audit Trail</button>
+</td>
+</tr>
+<!-- Row 10 -->
+<tr class="hover:bg-surface-canvas transition-colors">
+<td class="px-3 py-2">18 Jan 2026 11:30 (SP 24)</td>
+<td class="px-3 py-2 text-text-muted">17 Jan 2026 14:48 GMT</td>
+<td class="px-3 py-2">
+<span class="px-1.5 py-0.5 bg-surface-canvas rounded text-text-primary text-[11px]">D-1 15:00 Final</span>
+</td>
+<td class="px-3 py-2 text-right">14,320.00</td>
+<td class="px-3 py-2 text-right">13,100.00</td>
+<td class="px-3 py-2 text-right text-chart-secondary">+1,220.00</td>
+<td class="px-3 py-2 text-right font-medium text-chart-secondary">+9.31%</td>
+<td class="px-3 py-2 text-center">
+<button class="text-chart-primary font-label-md text-label-md hover:underline" type="button">Audit Trail</button>
+</td>
+</tr>
+<!-- Row 11 -->
+<tr class="hover:bg-surface-canvas transition-colors">
+<td class="px-3 py-2">18 Jan 2026 11:00 (SP 23)</td>
+<td class="px-3 py-2 text-text-muted">17 Jan 2026 14:48 GMT</td>
+<td class="px-3 py-2">
+<span class="px-1.5 py-0.5 bg-surface-canvas rounded text-text-primary text-[11px]">D-1 15:00 Final</span>
+</td>
+<td class="px-3 py-2 text-right">13,650.00</td>
+<td class="px-3 py-2 text-right">12,180.00</td>
+<td class="px-3 py-2 text-right text-chart-secondary">+1,470.00</td>
+<td class="px-3 py-2 text-right font-medium text-chart-secondary">+12.07%</td>
+<td class="px-3 py-2 text-center">
+<button class="text-chart-primary font-label-md text-label-md hover:underline" type="button">Audit Trail</button>
+</td>
+</tr>
+<!-- Row 12 -->
+<tr class="hover:bg-surface-canvas transition-colors">
+<td class="px-3 py-2">18 Jan 2026 10:30 (SP 22)</td>
+<td class="px-3 py-2 text-text-muted">17 Jan 2026 14:48 GMT</td>
+<td class="px-3 py-2">
+<span class="px-1.5 py-0.5 bg-surface-canvas rounded text-text-primary text-[11px]">D-1 15:00 Final</span>
+</td>
+<td class="px-3 py-2 text-right">12,980.00</td>
+<td class="px-3 py-2 text-right">11,400.00</td>
+<td class="px-3 py-2 text-right text-chart-secondary">+1,580.00</td>
+<td class="px-3 py-2 text-right font-medium text-chart-secondary">+13.86%</td>
+<td class="px-3 py-2 text-center">
+<button class="text-chart-primary font-label-md text-label-md hover:underline" type="button">Audit Trail</button>
+</td>
+</tr>
+<!-- Row 13 -->
+<tr class="hover:bg-surface-canvas transition-colors">
+<td class="px-3 py-2">18 Jan 2026 10:00 (SP 21)</td>
+<td class="px-3 py-2 text-text-muted">17 Jan 2026 14:48 GMT</td>
+<td class="px-3 py-2">
+<span class="px-1.5 py-0.5 bg-surface-canvas rounded text-text-primary text-[11px]">D-1 15:00 Final</span>
+</td>
+<td class="px-3 py-2 text-right">12,100.00</td>
+<td class="px-3 py-2 text-right">10,950.00</td>
+<td class="px-3 py-2 text-right text-chart-secondary">+1,150.00</td>
+<td class="px-3 py-2 text-right font-medium text-chart-secondary">+10.50%</td>
+<td class="px-3 py-2 text-center">
+<button class="text-chart-primary font-label-md text-label-md hover:underline" type="button">Audit Trail</button>
+</td>
+</tr>
+<!-- Row 14 -->
+<tr class="hover:bg-surface-canvas transition-colors">
+<td class="px-3 py-2">18 Jan 2026 09:30 (SP 20)</td>
+<td class="px-3 py-2 text-text-muted">17 Jan 2026 14:48 GMT</td>
+<td class="px-3 py-2">
+<span class="px-1.5 py-0.5 bg-surface-canvas rounded text-text-primary text-[11px]">D-1 15:00 Final</span>
+</td>
+<td class="px-3 py-2 text-right">11,450.00</td>
+<td class="px-3 py-2 text-right">10,600.00</td>
+<td class="px-3 py-2 text-right text-chart-secondary">+850.00</td>
+<td class="px-3 py-2 text-right font-medium text-chart-secondary">+8.02%</td>
+<td class="px-3 py-2 text-center">
+<button class="text-chart-primary font-label-md text-label-md hover:underline" type="button">Audit Trail</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Pagination Footer -->
+<div class="p-3 bg-surface-card flex flex-col md:flex-row md:items-center justify-between font-tabular-data text-tabular-data text-text-muted gap-3">
+<div class="flex items-center gap-4">
+<span>Showing <strong class="text-text-primary font-medium">1–14</strong> of <strong class="text-text-primary font-medium">744</strong> records</span>
+<div class="flex items-center gap-1.5">
+<span>Rows per page:</span>
+<select class="bg-surface-canvas text-text-primary px-2 py-0.5 rounded-sm outline-none">
+<option>25</option>
+<option>50</option>
+<option>100</option>
+</select>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<span>Jump to SP:</span>
+<input class="w-12 h-6 px-1.5 bg-surface-canvas text-center text-text-primary font-medium rounded-sm outline-none" type="text" value="33"/>
+</div>
+<div class="flex items-center gap-1">
+<button class="h-7 px-2.5 rounded-sm bg-surface-canvas text-text-muted hover:text-text-primary flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[15px]">chevron_left</span>
+<span>Prev</span>
+</button>
+<button class="h-7 w-7 rounded-sm bg-primary-container text-sidebar-text font-medium text-center" type="button">1</button>
+<button class="h-7 w-7 rounded-sm bg-surface-canvas text-text-primary hover:bg-surface-container text-center" type="button">2</button>
+<button class="h-7 w-7 rounded-sm bg-surface-canvas text-text-primary hover:bg-surface-container text-center" type="button">3</button>
+<span class="px-1 text-text-faint">...</span>
+<button class="h-7 w-7 rounded-sm bg-surface-canvas text-text-primary hover:bg-surface-container text-center" type="button">54</button>
+<button class="h-7 px-2.5 rounded-sm bg-surface-canvas text-text-primary hover:bg-surface-container flex items-center gap-1" type="button">
+<span>Next</span>
+<span class="material-symbols-outlined text-[15px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div></div></main></div></body></html>

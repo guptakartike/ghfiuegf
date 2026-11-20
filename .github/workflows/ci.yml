@@ -1,9 +1,16 @@
-name: CI
+name: CI / CD
+
 on:
   push:
     branches: [main, "feature/**"]
   pull_request:
     branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+  queue: max
+
 jobs:
   backend:
     name: Backend Tests
@@ -23,6 +30,7 @@ jobs:
       - name: Run tests
         working-directory: backend
         run: pytest
+
   frontend:
     name: Frontend Build
     runs-on: ubuntu-latest
@@ -45,12 +53,180 @@ jobs:
       - name: Build frontend
         working-directory: frontend
         run: pnpm build
-  docker:
-  name: Docker Build
-  runs-on: ubuntu-latest
-  steps:
-    - name: Checkout
-      uses: actions/checkout@v4
 
-    - name: Build Docker images
-      run: docker compose build
+  docker:
+    name: Docker Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build Docker images
+        run: docker compose build
+
+  migrate:
+    name: Production Database Migration
+    runs-on: ubuntu-latest
+    needs: [backend, frontend, docker]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        working-directory: backend
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run database migrations
+        working-directory: backend
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          if [ -z "$DATABASE_URL" ]; then
+            echo "::error::DATABASE_URL secret is not set!"
+            exit 1
+          fi
+          NORMALIZED_URL="$DATABASE_URL"
+          if [[ "$NORMALIZED_URL" == postgres://* ]]; then
+            NORMALIZED_URL="postgresql+psycopg://${NORMALIZED_URL#postgres://}"
+          elif [[ "$NORMALIZED_URL" == postgresql://* ]] && [[ "$NORMALIZED_URL" != postgresql+* ]]; then
+            NORMALIZED_URL="postgresql+psycopg://${NORMALIZED_URL#postgresql://}"
+          fi
+          DATABASE_URL="$NORMALIZED_URL" alembic upgrade head
+
+  deploy:
+    name: Trigger Render Deployment
+    runs-on: ubuntu-latest
+    needs: migrate
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Trigger Render Deploy Hook
+        env:
+          RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+          TARGET_COMMIT: ${{ github.sha }}
+        run: |
+          if [ -z "$RENDER_DEPLOY_HOOK_URL" ]; then
+            echo "::error::RENDER_DEPLOY_HOOK_URL secret is not set!"
+            exit 1
+          fi
+
+          if [[ "$RENDER_DEPLOY_HOOK_URL" == *"?"* ]]; then
+            DEPLOY_URL="${RENDER_DEPLOY_HOOK_URL}&ref=${TARGET_COMMIT}"
+          else
+            DEPLOY_URL="${RENDER_DEPLOY_HOOK_URL}?ref=${TARGET_COMMIT}"
+          fi
+
+          RESPONSE_FILE=$(mktemp)
+          HTTP_STATUS=$(curl -s -o "$RESPONSE_FILE" -w "%{http_code}" -X POST "$DEPLOY_URL")
+
+          if [ "$HTTP_STATUS" -lt 200 ] || [ "$HTTP_STATUS" -ge 300 ]; then
+            echo "::error::Failed to trigger Render deployment for commit $TARGET_COMMIT (HTTP $HTTP_STATUS)."
+            rm -f "$RESPONSE_FILE"
+            exit 1
+          fi
+
+          DEPLOY_ID=$(jq -r '.deploy.id // empty' "$RESPONSE_FILE" 2>/dev/null || true)
+          rm -f "$RESPONSE_FILE"
+
+          if [ -n "$DEPLOY_ID" ]; then
+            echo "Render deployment initiated successfully (Deploy ID: $DEPLOY_ID, HTTP $HTTP_STATUS)."
+            echo "DEPLOY_ID=$DEPLOY_ID" >> "$GITHUB_ENV"
+          else
+            echo "::error::Failed to extract deploy ID from Render deploy hook response (HTTP $HTTP_STATUS)."
+            exit 1
+          fi
+
+      - name: Verify Deployment Identity and Health
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+          RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+          EXPECTED_COMMIT: ${{ github.sha }}
+          HEALTH_URL: ${{ vars.BACKEND_HEALTH_URL || 'https://wind-analytics-api-d6st.onrender.com/api/v1/health' }}
+        run: |
+          if [ -z "$RENDER_API_KEY" ]; then
+            echo "::error::RENDER_API_KEY secret is required for deployment identity verification."
+            exit 1
+          fi
+
+          if [ -z "$DEPLOY_ID" ]; then
+            echo "::error::DEPLOY_ID was not captured from the Render deploy hook response."
+            exit 1
+          fi
+
+          SERVICE_ID=$(echo "$RENDER_DEPLOY_HOOK_URL" | sed -E 's|.*/deploy/(srv-[^?]+).*|\1|')
+          if [[ "$SERVICE_ID" != srv-* ]]; then
+            echo "::error::Could not extract valid Render service ID (srv-*) from RENDER_DEPLOY_HOOK_URL."
+            exit 1
+          fi
+
+          MAX_ATTEMPTS=45
+          SLEEP_SECONDS=10
+          ATTEMPT=1
+          DEPLOY_CONFIRMED=0
+
+          echo "Target deployment commit: $EXPECTED_COMMIT"
+          echo "Verifying deployment status and commit identity via Render API (Service: $SERVICE_ID, Deploy: $DEPLOY_ID)..."
+
+          while [ $ATTEMPT -le $MAX_ATTEMPTS ]; do
+            API_RESPONSE=$(curl -s -H "Authorization: Bearer $RENDER_API_KEY" \
+              "https://api.render.com/v1/services/$SERVICE_ID/deploys/$DEPLOY_ID" || true)
+
+            STATUS=$(echo "$API_RESPONSE" | jq -r '.status // empty')
+            DEPLOY_COMMIT=$(echo "$API_RESPONSE" | jq -r '.commit.id // empty')
+
+            if [ "$STATUS" = "live" ]; then
+              if [ -z "$DEPLOY_COMMIT" ]; then
+                echo "::error::Render deploy $DEPLOY_ID is live, but commit.id is missing in API response."
+                exit 1
+              fi
+
+              if [ "$DEPLOY_COMMIT" != "$EXPECTED_COMMIT" ]; then
+                echo "::error::Live commit on Render ($DEPLOY_COMMIT) does not match expected commit ($EXPECTED_COMMIT)."
+                exit 1
+              fi
+
+              echo "Deployment confirmed: Deploy $DEPLOY_ID is live on Render with matching commit $EXPECTED_COMMIT."
+              DEPLOY_CONFIRMED=1
+              break
+            elif [ "$STATUS" = "build_failed" ] || [ "$STATUS" = "canceled" ] || [ "$STATUS" = "deactivated" ] || [ "$STATUS" = "update_failed" ] || [ "$STATUS" = "pre_deploy_failed" ]; then
+              echo "::error::Render deployment terminated with status: $STATUS"
+              exit 1
+            fi
+
+            echo "Attempt $ATTEMPT/$MAX_ATTEMPTS: Render deployment status is '${STATUS:-pending}'. Waiting ${SLEEP_SECONDS}s..."
+            sleep $SLEEP_SECONDS
+            ATTEMPT=$((ATTEMPT + 1))
+          done
+
+          if [ $DEPLOY_CONFIRMED -ne 1 ]; then
+            echo "::error::Render deployment did not reach verified 'live' status with commit $EXPECTED_COMMIT within $((MAX_ATTEMPTS * SLEEP_SECONDS)) seconds."
+            exit 1
+          fi
+
+          echo "Verifying backend health endpoint ($HEALTH_URL)..."
+          HEALTH_ATTEMPT=1
+          HEALTH_MAX=15
+          HEALTH_PASSED=0
+
+          while [ $HEALTH_ATTEMPT -le $HEALTH_MAX ]; do
+            HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "$HEALTH_URL" || true)
+            if [ "$HTTP_CODE" = "200" ]; then
+              echo "Backend health check passed (HTTP 200)."
+              HEALTH_PASSED=1
+              break
+            fi
+            echo "Health attempt $HEALTH_ATTEMPT/$HEALTH_MAX: HTTP $HTTP_CODE. Retrying in 5s..."
+            sleep 5
+            HEALTH_ATTEMPT=$((HEALTH_ATTEMPT + 1))
+          done
+
+          if [ $HEALTH_PASSED -ne 1 ]; then
+            echo "::error::Backend health check failed after deployment."
+            exit 1
+          fi
